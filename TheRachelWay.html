@@ -1243,11 +1243,11 @@
         // ============================================
         // FUEL GAUGE ANIMATION — Slide 4
         // ============================================
-        let fuelDrained = false;
+        let fuelAnimating = false;
 
         function drainFuel() {
-            if (fuelDrained) return;
-            fuelDrained = true;
+            if (fuelAnimating) return;
+            fuelAnimating = true;
 
             const fuelLevel = document.getElementById('fuel-level');
             const fuelPercent = document.getElementById('fuel-percent');
@@ -1280,15 +1280,18 @@
 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
+                } else {
+                    fuelAnimating = false;
                 }
             }
 
             requestAnimationFrame(animate);
         }
 
-        // Auto-drain fuel gauge when entering the token constraint slide
+        // Reset and auto-drain fuel gauge when entering the token constraint slide
         Reveal.on('slidechanged', event => {
-            if (event.indexh === 4 && !fuelDrained) {
+            if (event.indexh === 4) {
+                fuelAnimating = false;
                 setTimeout(drainFuel, 1500);
             }
         });
