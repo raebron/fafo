@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Express | AI Transformation with Prism</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            /* Co-branded Color Palette */
+            /* Insight Brand Colors */
+            --insight-hunger: #D40E8C;
+            --insight-heart: #B01C87;
+            --insight-harmony: #582873;
+            --insight-vision: #5990F0;
+            --insight-zeal: #4EC7EA;
+            --insight-hustle: #D30C55;
+            
+            /* American Express Brand Colors */
+            --amex-bright-blue: #006FCF;
+            --amex-deep-blue: #00175A;
+            --amex-light-blue: #2E77BB;
+            
+            /* UI Colors */
+            --bg-dark: #0A0E1A;
+            --bg-card: #111827;
+            --bg-card-hover: #1F2937;
+            --border-dark: #374151;
+            --text-primary: #F9FAFB;
+            --text-secondary: #D1D5DB;
+            --text-muted: #9CA3AF;
+            
+            /* Accent Gradient (Co-branded) */
+            --gradient-primary: linear-gradient(135deg, var(--amex-bright-blue), var(--insight-harmony), var(--insight-hunger));
+            --gradient-amex: linear-gradient(135deg, var(--amex-deep-blue), var(--amex-bright-blue));
+            --gradient-insight: linear-gradient(135deg, var(--insight-zeal), var(--insight-vision), var(--insight-hunger));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .presentation {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(to right, rgba(10, 14, 26, 0.98), transparent);
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .prism-logo-img {
+            width: 160px;
+            height: auto;
+            filter: drop-shadow(0 4px 12px rgba(211, 14, 140, 0.3));
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .prism-logo-img:hover {
+            filter: drop-shadow(0 6px 20px rgba(211, 14, 140, 0.5));
+            transform: scale(1.05);
+        }
+
+        .logo-insight {
+            font-size: 18px;
+            font-weight: 700;
+            background: var(--gradient-insight);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-amex {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--amex-bright-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-divider {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chapter {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chapter::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .chapter.active::before {
+            background: var(--amex-bright-blue);
+            box-shadow: 0 0 10px var(--amex-bright-blue);
+        }
+
+        .chapter .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .chapter.active .title {
+            color: var(--amex-bright-blue);
+        }
+
+        .chapter:hover .title {
+            color: var(--text-secondary);
+        }
+
+        .chapter.visited::before {
+            background: var(--insight-harmony);
+        }
+
+        .chapter.visited .title {
+            color: var(--text-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-left: 220px;
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            gap: 20px;
+            border-bottom: 1px solid var(--border-dark);
+            background: linear-gradient(to right, rgba(10, 14, 26, 0.8), transparent);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-bar .prism-logo-img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(211, 14, 140, 0.3));
+        }
+
+        .top-bar-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .slide-counter .current {
+            color: var(--amex-bright-blue);
+            font-size: 18px;
+        }
+
+        .nav-keys {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .key:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--amex-bright-blue);
+            color: var(--amex-bright-blue);
+        }
+
+        /* Slides */
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .slide.prev {
+            transform: translateX(-50px);
+        }
+
+        .slide-header {
+            margin-bottom: 30px;
+        }
+
+        .slide-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            color: transparent;
+            background: var(--gradient-insight);
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin-bottom: 10px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .slide-subtitle::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .slide-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--amex-bright-blue);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon.blue { background: linear-gradient(135deg, var(--amex-bright-blue), var(--amex-deep-blue)); }
+        .card-icon.purple { background: linear-gradient(135deg, var(--insight-harmony), var(--insight-heart)); }
+        .card-icon.pink { background: linear-gradient(135deg, var(--insight-hunger), var(--insight-hustle)); }
+        .card-icon.cyan { background: linear-gradient(135deg, var(--insight-zeal), var(--insight-vision)); }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Hero Section (Introduction) */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--amex-bright-blue);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--amex-bright-blue) 50%, var(--insight-hunger) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Journey Section */
+        .journey-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .journey-phase {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .journey-phase:nth-child(1) { animation-delay: 0.1s; }
+        .journey-phase:nth-child(2) { animation-delay: 0.3s; }
+        .journey-phase:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase-marker {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .phase-marker.phase-1 { background: var(--gradient-amex); color: white; }
+        .phase-marker.phase-2 { background: linear-gradient(135deg, var(--insight-vision), var(--insight-harmony)); color: white; }
+        .phase-marker.phase-3 { background: linear-gradient(135deg, var(--insight-hunger), var(--insight-hustle)); color: white; }
+
+        .phase-marker::after {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--border-dark), transparent);
+        }
+
+        .journey-phase:last-child .phase-marker::after {
+            display: none;
+        }
+
+        .phase-content {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .phase-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .phase-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .phase-deliverables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .deliverable-tag {
+            padding: 6px 12px;
+            background: rgba(0, 111, 207, 0.15);
+            border: 1px solid rgba(0, 111, 207, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--amex-bright-blue);
+        }
+
+        /* Timeline Section */
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .timeline-header {
+            display: grid;
+            grid-template-columns: 150px repeat(4, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .week-label {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+
+        .timeline-row {
+            display: grid;
+            grid-template-columns: 150px repeat(4, 1fr);
+            gap: 4px;
+            align-items: center;
+        }
+
+        .timeline-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+
+        .timeline-cell {
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-cell:hover {
+            transform: scale(1.02);
+        }
+
+        .timeline-cell.active-1 { background: var(--gradient-amex); }
+        .timeline-cell.active-2 { background: linear-gradient(135deg, var(--insight-vision), var(--insight-harmony)); }
+        .timeline-cell.active-3 { background: linear-gradient(135deg, var(--insight-hunger), var(--insight-hustle)); }
+        .timeline-cell.milestone { 
+            background: var(--bg-card); 
+            border: 2px dashed var(--amex-bright-blue);
+            color: var(--amex-bright-blue);
+        }
+
+        /* Scope Section */
+        .scope-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .scope-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .scope-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--amex-bright-blue);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scope-list {
+            list-style: none;
+        }
+
+        .scope-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-dark);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .scope-list li:last-child {
+            border-bottom: none;
+        }
+
+        .scope-list li::before {
+            content: '✓';
+            color: var(--insight-zeal);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Investment Section */
+        .investment-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .investment-main {
+            flex: 1;
+        }
+
+        .investment-card {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hover));
+            border: 2px solid var(--amex-bright-blue);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .investment-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .investment-amount {
+            font-size: 64px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .investment-term {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .investment-details {
+            flex: 1;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Assumptions & Out of Scope */
+        .assumptions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .assumption-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .assumption-card.warning {
+            border-color: var(--insight-hunger);
+        }
+
+        .assumption-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .assumption-title.green { color: var(--insight-zeal); }
+        .assumption-title.orange { color: var(--insight-hunger); }
+
+        .assumption-list {
+            list-style: none;
+        }
+
+        .assumption-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .assumption-list li::before {
+            content: '•';
+            color: var(--amex-bright-blue);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .assumption-list.warning li::before {
+            content: '✕';
+            color: var(--insight-hunger);
+        }
+
+        /* Out of Scope Section */
+        .out-of-scope-container {
+            margin-top: 20px;
+        }
+
+        .out-of-scope-notice {
+            background: linear-gradient(135deg, rgba(212, 14, 140, 0.1), rgba(88, 40, 115, 0.1));
+            border: 1px solid var(--insight-hunger);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .out-of-scope-notice p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contacts Section */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--amex-bright-blue);
+        }
+
+        .contact-role {
+            font-size: 12px;
+            color: var(--amex-bright-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .contact-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .contact-email {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            z-index: 200;
+        }
+
+        .keyboard-hint kbd {
+            padding: 4px 8px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 11px;
+        }
+
+        /* Co-brand footer */
+        .cobrand-footer {
+            position: fixed;
+            bottom: 0;
+            left: 220px;
+            right: 0;
+            padding: 16px 40px;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .cobrand-logos {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cobrand-logo {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .cobrand-logo.insight {
+            background: var(--gradient-insight);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cobrand-logo.amex {
+            color: var(--amex-bright-blue);
+        }
+
+        .cobrand-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border-dark);
+        }
+
+        .confidential {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Prism Component */
+        .prism-interactive-container {
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            z-index: 150;
+        }
+
+        .prism-3d {
+            width: 120px;
+            height: 140px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prism-3d:hover {
+            animation-play-state: paused;
+            transform: scale(1.2) rotateY(45deg) rotateX(10deg);
+        }
+
+        .prism-3d:active {
+            animation: spin 2s ease-in-out;
+        }
+
+        .prism-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .prism-face.front {
+            background: linear-gradient(135deg, rgba(89, 144, 240, 0.7), rgba(78, 199, 234, 0.7));
+            transform: translateZ(60px);
+        }
+
+        .prism-face.back {
+            background: linear-gradient(135deg, rgba(212, 14, 140, 0.7), rgba(176, 28, 135, 0.7));
+            transform: translateZ(-60px) rotateY(180deg);
+        }
+
+        .prism-face.right {
+            background: linear-gradient(135deg, rgba(88, 40, 115, 0.7), rgba(212, 14, 140, 0.7));
+            transform: rotateY(90deg) translateZ(60px);
+            width: 120px;
+        }
+
+        .prism-face.left {
+            background: linear-gradient(135deg, rgba(78, 199, 234, 0.7), rgba(89, 144, 240, 0.7));
+            transform: rotateY(-90deg) translateZ(60px);
+            width: 120px;
+        }
+
+        .prism-face.top {
+            background: linear-gradient(135deg, rgba(211, 12, 85, 0.7), rgba(212, 14, 140, 0.7));
+            transform: rotateX(90deg) translateZ(70px);
+            height: 120px;
+        }
+
+        .prism-face.bottom {
+            background: linear-gradient(135deg, rgba(0, 111, 207, 0.7), rgba(46, 119, 187, 0.7));
+            transform: rotateX(-90deg) translateZ(70px);
+            height: 120px;
+        }
+
+        .prism-3d:hover .prism-face {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(212, 14, 140, 0.5);
+        }
+
+        .prism-particles {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .prism-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 3s ease-in-out infinite;
+        }
+
+        .prism-particle:nth-child(1) {
+            background: var(--insight-hunger);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .prism-particle:nth-child(2) {
+            background: var(--insight-vision);
+            top: 40%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .prism-particle:nth-child(3) {
+            background: var(--insight-zeal);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .prism-particle:nth-child(4) {
+            background: var(--amex-bright-blue);
+            bottom: 30%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+
+        .prism-particle:nth-child(5) {
+            background: var(--insight-harmony);
+            top: 50%;
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        /* Prism sparkles on cards */
+        .card:hover::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--insight-hunger),
+                var(--insight-vision),
+                var(--insight-zeal),
+                var(--amex-bright-blue),
+                var(--insight-harmony));
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0;
+            filter: blur(10px);
+            animation: prismGlow 2s ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotateY(0deg) rotateX(10deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateY(180deg) rotateX(10deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateY(0deg) rotateX(0deg);
+            }
+            100% {
+                transform: rotateY(720deg) rotateX(360deg);
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(var(--x, 20px), var(--y, -30px)) scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x, 40px), var(--y, -60px)) scale(0);
+            }
+        }
+
+        @keyframes prismGlow {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Prism logo watermark */
+        .prism-watermark {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.05;
+            width: 300px;
+            height: auto;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 180px;
+            }
+            .main-content {
+                margin-left: 180px;
+            }
+            .hero-title {
+                font-size: 40px;
+            }
+            .scope-grid,
+            .assumptions-grid {
+                grid-template-columns: 1fr;
+            }
+            .investment-container {
+                flex-direction: column;
+            }
+            .prism-interactive-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <!-- Prism Logo SVG -->
+                    <svg class="prism-logo-img" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Prism Icon -->
+                        <g transform="translate(0, 20)">
+                            <!-- Geometric Prism Shape -->
+                            <polygon points="60,10 110,50 110,130 60,170 10,130 10,50" fill="url(#prismGradient1)" opacity="0.9"/>
+                            <polygon points="60,10 110,50 60,90" fill="url(#prismGradient2)" opacity="0.8"/>
+                            <polygon points="60,90 110,130 60,170" fill="url(#prismGradient3)" opacity="0.85"/>
+                            <polygon points="10,50 60,90 10,130" fill="url(#prismGradient4)" opacity="0.75"/>
+                            <polygon points="60,10 10,50 60,90" fill="url(#prismGradient5)" opacity="0.7"/>
+                            <polygon points="60,90 10,130 60,170" fill="url(#prismGradient6)" opacity="0.8"/>
+                            
+                            <!-- Gradients -->
+                            <defs>
+                                <linearGradient id="prismGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#B01C87;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="prismGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#582873;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="prismGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#582873;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#5990F0;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="prismGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5990F0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#4EC7EA;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="prismGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4EC7EA;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#D30C55;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="prismGradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D30C55;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#B01C87;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </g>
+                        
+                        <!-- Prism Text -->
+                        <text x="135" y="70" font-family="Arial, sans-serif" font-size="55" font-weight="bold" fill="#2B2B2B">Prism</text>
+                        
+                        <!-- insight text -->
+                        <text x="135" y="130" font-family="Arial, sans-serif" font-size="28" font-weight="normal" fill="#666">by insight</text>
+                    </svg>
+                    <span class="logo-divider">×</span>
+                    <span class="logo-amex">AMERICAN EXPRESS</span>
+                </div>
+            </div>
+            <div class="chapter active" data-slide="0">
+                <span class="title">Introduction</span>
+            </div>
+            <div class="chapter" data-slide="1">
+                <span class="title">Journey</span>
+            </div>
+            <div class="chapter" data-slide="2">
+                <span class="title">Timeline</span>
+            </div>
+            <div class="chapter" data-slide="3">
+                <span class="title">Scope</span>
+            </div>
+            <div class="chapter" data-slide="4">
+                <span class="title">Investment</span>
+            </div>
+            <div class="chapter" data-slide="5">
+                <span class="title">Assumptions</span>
+            </div>
+            <div class="chapter" data-slide="6">
+                <span class="title">Out of Scope</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <!-- Compact Prism Logo for Top Bar -->
+                    <svg class="prism-logo-img" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(0, 20)">
+                            <polygon points="60,10 110,50 110,130 60,170 10,130 10,50" fill="url(#topPrismGradient1)" opacity="0.9"/>
+                            <polygon points="60,10 110,50 60,90" fill="url(#topPrismGradient2)" opacity="0.8"/>
+                            <polygon points="60,90 110,130 60,170" fill="url(#topPrismGradient3)" opacity="0.85"/>
+                            <polygon points="10,50 60,90 10,130" fill="url(#topPrismGradient4)" opacity="0.75"/>
+                            <polygon points="60,10 10,50 60,90" fill="url(#topPrismGradient5)" opacity="0.7"/>
+                            <polygon points="60,90 10,130 60,170" fill="url(#topPrismGradient6)" opacity="0.8"/>
+                            <defs>
+                                <linearGradient id="topPrismGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#B01C87;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="topPrismGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#582873;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="topPrismGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#582873;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#5990F0;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="topPrismGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5990F0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#4EC7EA;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="topPrismGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4EC7EA;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#D30C55;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="topPrismGradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D30C55;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#B01C87;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </g>
+                        <text x="135" y="70" font-family="Arial, sans-serif" font-size="55" font-weight="bold" fill="#F9FAFB">Prism</text>
+                        <text x="135" y="130" font-family="Arial, sans-serif" font-size="28" font-weight="normal" fill="#9CA3AF">by insight</text>
+                    </svg>
+                    <div class="top-bar-title">AI Transformation</div>
+                </div>
+                <div class="top-bar-right">
+                    <div class="slide-counter">
+                        <span class="current" id="currentSlide">1</span>
+                        <span>/</span>
+                        <span id="totalSlides">7</span>
+                    </div>
+                    <div class="nav-keys">
+                        <button class="key" onclick="prevSlide()">←</button>
+                        <button class="key" onclick="nextSlide()">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slides-container">
+                <!-- Slide 1: Introduction -->
+                <section class="slide active" data-index="0">
+                    <div class="hero-content">
+                        <!-- Prism Background Effect -->
+                        <svg style="position: absolute; top: 0; right: 0; width: 400px; height: 400px; opacity: 0.08; pointer-events: none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#582873;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="heroGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5990F0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#4EC7EA;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="100,20 180,80 180,160 100,220 20,160 20,80" fill="url(#heroGrad1)" opacity="0.6"/>
+                            <polygon points="100,20 180,80 100,140" fill="url(#heroGrad2)" opacity="0.5"/>
+                            <polygon points="100,140 180,160 100,220" fill="url(#heroGrad1)" opacity="0.7"/>
+                            <polygon points="20,80 100,140 20,160" fill="url(#heroGrad2)" opacity="0.4"/>
+                        </svg>
+                        
+                        <div class="hero-badge">
+                            <span>🚀</span>
+                            <span>RADIUS™ Strategy Engagement</span>
+                        </div>
+                        <h1 class="hero-title">Accelerating AI Transformation with Prism</h1>
+                        <p class="hero-description">
+                            A strategic engagement to onboard American Express to Insight's Prism platform, 
+                            enabling AI-driven transformation through structured use case identification, 
+                            prioritization, and product requirement development.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <div class="stat-value">4</div>
+                                <div class="stat-label">Weeks</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">10-15</div>
+                                <div class="stat-label">Use Cases</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">PRDs Delivered</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 2: Journey -->
+                <section class="slide" data-index="1">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">The Path to AI Excellence</div>
+                        <h2 class="slide-title">Your Transformation Journey</h2>
+                    </div>
+                    <div class="journey-container">
+                        <div class="journey-phase">
+                            <div class="phase-marker phase-1">1</div>
+                            <div class="phase-content">
+                                <h3 class="phase-title">Phase 1: Data Foundation</h3>
+                                <p class="phase-description">
+                                    Aggregate and understand data previously compiled by client workshops. 
+                                    Populate the Prism tool with existing insights and establish the foundation 
+                                    for AI opportunity identification.
+                                </p>
+                                <div class="phase-deliverables">
+                                    <span class="deliverable-tag">Data Aggregation</span>
+                                    <span class="deliverable-tag">Prism Setup</span>
+                                    <span class="deliverable-tag">Baseline Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-phase">
+                            <div class="phase-marker phase-2">2</div>
+                            <div class="phase-content">
+                                <h3 class="phase-title">Phase 2: Stakeholder Onboarding</h3>
+                                <p class="phase-description">
+                                    Conduct 1-hour onboarding sessions with key stakeholders across IT, Finance, 
+                                    HR, and other business units. Ensure access to Prism and align on priorities 
+                                    for AI transformation.
+                                </p>
+                                <div class="phase-deliverables">
+                                    <span class="deliverable-tag">Stakeholder Interviews</span>
+                                    <span class="deliverable-tag">Platform Access</span>
+                                    <span class="deliverable-tag">Priority Alignment</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-phase">
+                            <div class="phase-marker phase-3">3</div>
+                            <div class="phase-content">
+                                <h3 class="phase-title">Phase 3: PRD Generation</h3>
+                                <p class="phase-description">
+                                    Conduct workshops to define all functional and technical requirements. 
+                                    Deliver 3 comprehensive Product Requirements Documents for prioritized 
+                                    use cases identified through Prism analysis.
+                                </p>
+                                <div class="phase-deliverables">
+                                    <span class="deliverable-tag">Requirements Workshops</span>
+                                    <span class="deliverable-tag">3 PRDs</span>
+                                    <span class="deliverable-tag">Technical Specs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 3: Timeline -->
+                <section class="slide" data-index="2">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">Project Schedule</div>
+                        <h2 class="slide-title">4-Week Engagement Timeline</h2>
+                    </div>
+                    <div class="timeline-container">
+                        <div class="timeline-header">
+                            <div></div>
+                            <div class="week-label">Week 1</div>
+                            <div class="week-label">Week 2</div>
+                            <div class="week-label">Week 3</div>
+                            <div class="week-label">Week 4</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-label">Phase 1: Data</div>
+                            <div class="timeline-cell active-1">Data Aggregation</div>
+                            <div class="timeline-cell active-1">Prism Population</div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell"></div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-label">Phase 2: Onboard</div>
+                            <div class="timeline-cell active-2">Stakeholder Sessions</div>
+                            <div class="timeline-cell active-2">Access & Alignment</div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell"></div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-label">Phase 3: PRD</div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell active-3">Requirements Workshops</div>
+                            <div class="timeline-cell active-3">PRD Finalization</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-label">Milestones</div>
+                            <div class="timeline-cell milestone">Kickoff</div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell"></div>
+                            <div class="timeline-cell milestone">Final Delivery</div>
+                        </div>
+                    </div>
+                    <div class="cards-grid" style="margin-top: 40px;">
+                        <div class="card">
+                            <div class="card-icon blue">📍</div>
+                            <h3 class="card-title">Remote Delivery</h3>
+                            <p class="card-description">All services performed remotely. Workshops conducted via Microsoft Teams.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon purple">⏰</div>
+                            <h3 class="card-title">Business Hours</h3>
+                            <p class="card-description">Monday–Friday, 8am–5pm local time. Excluding Insight holidays.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon cyan">📊</div>
+                            <h3 class="card-title">Weekly Status</h3>
+                            <p class="card-description">Project Management Deliverable: Weekly status reports on program progress.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 4: Scope -->
+                <section class="slide" data-index="3">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">What's Included</div>
+                        <h2 class="slide-title">Engagement Scope & Deliverables</h2>
+                    </div>
+                    <div class="scope-grid">
+                        <div class="scope-card">
+                            <h3 class="scope-card-title">
+                                <span>🎯</span>
+                                RADIUS™ Services
+                            </h3>
+                            <ul class="scope-list">
+                                <li>AI ecosystem analysis across people, processes, and technology</li>
+                                <li>Use Case Identification and Prioritization (PRISM™) sessions</li>
+                                <li>Identify and prioritize 10–15 high-value AI use cases</li>
+                                <li>Alignment with Insight's DEVSHOP™ delivery model</li>
+                                <li>Measurable improvement outcomes</li>
+                            </ul>
+                        </div>
+                        <div class="scope-card">
+                            <h3 class="scope-card-title">
+                                <span>📦</span>
+                                Deliverables
+                            </h3>
+                            <ul class="scope-list">
+                                <li>Access to Prism platform</li>
+                                <li>Population of data based on existing workshop information</li>
+                                <li>Training and onboarding to the Prism tool</li>
+                                <li>3 Product Requirements Documents (PRDs) for top use cases</li>
+                            </ul>
+                        </div>
+                        <div class="scope-card">
+                            <h3 class="scope-card-title">
+                                <span>👥</span>
+                                Stakeholder Coverage
+                            </h3>
+                            <ul class="scope-list">
+                                <li>IT leadership and technical teams</li>
+                                <li>Finance stakeholders</li>
+                                <li>HR and workforce planning</li>
+                                <li>Other key business units</li>
+                            </ul>
+                        </div>
+                        <div class="scope-card">
+                            <h3 class="scope-card-title">
+                                <span>🔧</span>
+                                Product Management
+                            </h3>
+                            <ul class="scope-list">
+                                <li>Dedicated escalation point throughout engagement</li>
+                                <li>Coordination with all Insight project team members</li>
+                                <li>Project communications plans and documentation</li>
+                                <li>Weekly status reports on program progress</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 5: Investment -->
+                <section class="slide" data-index="4">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">Pricing & Terms</div>
+                        <h2 class="slide-title">Investment</h2>
+                    </div>
+                    <div class="investment-container">
+                        <div class="investment-main">
+                            <div class="investment-card">
+                                <div class="investment-label">Fixed Fee Investment</div>
+                                <div class="investment-amount">$56,000</div>
+                                <div class="investment-term">RADIUS™ for AI Transformation</div>
+                            </div>
+                            <div class="cards-grid">
+                                <div class="card">
+                                    <div class="card-icon blue">💳</div>
+                                    <h3 class="card-title">Monthly Invoicing</h3>
+                                    <p class="card-description">Based on percentage complete, plus travel expenses (if applicable).</p>
+                                </div>
+                                <div class="card">
+                                    <div class="card-icon purple">📅</div>
+                                    <h3 class="card-title">60-Day Validity</h3>
+                                    <p class="card-description">Pricing valid for 60 days from SOW presentation date.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="investment-details">
+                            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">Investment Details</h3>
+                            <div class="detail-item">
+                                <span class="detail-label">Engagement Duration</span>
+                                <span class="detail-value">4 Weeks</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Delivery Model</span>
+                                <span class="detail-value">100% Remote</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Travel Expenses</span>
+                                <span class="detail-value">At cost (if required)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Lead Time</span>
+                                <span class="detail-value">20 business days</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Early Termination</span>
+                                <span class="detail-value">5-day notice + 20% fee</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 6: Assumptions -->
+                <section class="slide" data-index="5">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">Engagement Parameters</div>
+                        <h2 class="slide-title">Assumptions & Client Responsibilities</h2>
+                    </div>
+                    <div class="assumptions-grid">
+                        <div class="assumption-card">
+                            <h3 class="assumption-title green">
+                                <span>✓</span>
+                                Engagement Assumptions
+                            </h3>
+                            <ul class="assumption-list">
+                                <li>Workshops will be held remotely via Microsoft Teams</li>
+                                <li>Services completed within approximately 4 weeks</li>
+                                <li>Workshops occur in the first half of the engagement</li>
+                                <li>Third-party services (Teams, Outlook) function properly</li>
+                                <li>Insight resources work contiguously start to finish</li>
+                                <li>Scope changes documented via formal change request</li>
+                            </ul>
+                        </div>
+                        <div class="assumption-card">
+                            <h3 class="assumption-title green">
+                                <span>👤</span>
+                                Client Responsibilities
+                            </h3>
+                            <ul class="assumption-list">
+                                <li>Provide access to resources with knowledge of current services</li>
+                                <li>Assign dedicated point of contact for 3P™ and RADIUS™</li>
+                                <li>Provide access to AI-related data for Insight review</li>
+                                <li>Ensure proper personnel scheduled for deliverable reviews</li>
+                                <li>Provide access to internal experts, systems, and applications</li>
+                                <li>Coordinate onsite access or VPN if required</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin: 32px 0 16px; color: var(--text-primary);">Project Contacts</h3>
+                    <div class="contacts-grid">
+                        <div class="contact-card">
+                            <div class="contact-role">Client Sponsor</div>
+                            <div class="contact-name">Dirk White</div>
+                            <div class="contact-email">Dirk.White@aexp.com</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-role">Client Executive</div>
+                            <div class="contact-name">Gerald Gallaghy</div>
+                            <div class="contact-email">Gerald.Gallaghy@insight.com</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-role">Solutions Executive</div>
+                            <div class="contact-name">Anna Chapman</div>
+                            <div class="contact-email">Anna.Chapman@insight.com</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-role">Services Manager</div>
+                            <div class="contact-name">Meagan Gentry</div>
+                            <div class="contact-email">Meagan.Gentry@insight.com</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 7: Out of Scope -->
+                <section class="slide" data-index="6">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">Boundaries & Exclusions</div>
+                        <h2 class="slide-title">Out of Scope</h2>
+                    </div>
+                    <div class="out-of-scope-container">
+                        <div class="out-of-scope-notice">
+                            <p>
+                                <strong>Important:</strong> Services and Deliverable items not expressly described in the 
+                                Scope and Approach section are considered to be out of scope. Any out-of-scope items must 
+                                be pre-authorized and verified by Insight in writing through the Change Request (CR) Form process.
+                            </p>
+                        </div>
+                        <div class="assumptions-grid">
+                            <div class="assumption-card warning">
+                                <h3 class="assumption-title orange">
+                                    <span>✕</span>
+                                    Not Included in This Engagement
+                                </h3>
+                                <ul class="assumption-list warning">
+                                    <li>Implementation or development of AI solutions</li>
+                                    <li>Data migration or system integration work</li>
+                                    <li>Ongoing platform maintenance or support</li>
+                                    <li>Hardware or software procurement</li>
+                                    <li>Training beyond Prism platform onboarding</li>
+                                    <li>Additional PRDs beyond the 3 specified</li>
+                                    <li>Use case implementation or coding</li>
+                                </ul>
+                            </div>
+                            <div class="assumption-card">
+                                <h3 class="assumption-title green">
+                                    <span>→</span>
+                                    Change Request Process
+                                </h3>
+                                <ul class="assumption-list">
+                                    <li>Changes to environment, scope, or milestones</li>
+                                    <li>Additional resources, projects, or new services</li>
+                                    <li>Hardware and software management changes</li>
+                                    <li>Baseline adjustments affecting timeline or pricing</li>
+                                    <li>Site changes or nature of service modifications</li>
+                                    <li>All changes require written CR approval</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="cards-grid" style="margin-top: 32px;">
+                            <div class="card">
+                                <div class="card-icon pink">🚀</div>
+                                <h3 class="card-title">Ready to Transform?</h3>
+                                <p class="card-description">
+                                    This engagement sets the foundation for American Express's AI transformation journey. 
+                                    Upon completion, you'll have a clear roadmap and prioritized use cases ready for implementation.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <div class="card-icon blue">📞</div>
+                                <h3 class="card-title">Next Steps</h3>
+                                <p class="card-description">
+                                    Contact your Insight team to schedule the project kickoff meeting and begin 
+                                    the journey toward AI-driven transformation with Prism.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Co-brand Footer -->
+            <div class="cobrand-footer">
+                <div class="cobrand-logos">
+                    <!-- Mini Prism Icon -->
+                    <svg width="24" height="28" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                        <polygon points="60,10 90,40 90,120 60,150 30,120 30,40" fill="url(#footerPrismGrad)" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="footerPrismGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#D40E8C;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#582873;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#5990F0;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="cobrand-logo insight">Prism by insight</span>
+                    <div class="cobrand-divider"></div>
+                    <span class="cobrand-logo amex">AMERICAN EXPRESS</span>
+                </div>
+                <div class="confidential">Confidential | SOW #5010004736</div>
+            </div>
+        </main>
+
+        <!-- Keyboard Hint -->
+        <div class="keyboard-hint">
+            <span>Navigate:</span>
+            <kbd>←</kbd>
+            <kbd>→</kbd>
+            <span>or click sidebar</span>
+        </div>
+
+        <!-- Interactive 3D Prism -->
+        <div class="prism-interactive-container">
+            <div class="prism-3d">
+                <div class="prism-face front"></div>
+                <div class="prism-face back"></div>
+                <div class="prism-face right"></div>
+                <div class="prism-face left"></div>
+                <div class="prism-face top"></div>
+                <div class="prism-face bottom"></div>
+                <div class="prism-particles">
+                    <div class="prism-particle"></div>
+                    <div class="prism-particle"></div>
+                    <div class="prism-particle"></div>
+                    <div class="prism-particle"></div>
+                    <div class="prism-particle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const chapters = document.querySelectorAll('.chapter');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i === index) {
+                    slide.classList.add('active');
+                } else if (i < index) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Update chapters
+            chapters.forEach((chapter, i) => {
+                chapter.classList.remove('active');
+                if (i === index) {
+                    chapter.classList.add('active');
+                }
+                if (i <= index) {
+                    chapter.classList.add('visited');
+                }
+            });
+
+            currentSlide = index;
+            document.getElementById('currentSlide').textContent = index + 1;
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Chapter click navigation
+        chapters.forEach((chapter, index) => {
+            chapter.addEventListener('click', () => {
+                goToSlide(index);
+            });
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        <!-- Initialize first slide -->
+        goToSlide(0);
+
+        // Interactive 3D Prism Component
+        const prism3D = document.querySelector('.prism-3d');
+        if (prism3D) {
+            prism3D.addEventListener('click', () => {
+                // Create particle burst effect
+                const particles = document.querySelectorAll('.prism-particle');
+                particles.forEach((particle, index) => {
+                    const angle = (index / particles.length) * Math.PI * 2;
+                    const distance = 50 + Math.random() * 30;
+                    particle.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+                    particle.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+                });
+
+                // Add temporary glow to all cards
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.animation = 'none';
+                    setTimeout(() => {
+                        card.style.animation = '';
+                    }, 10);
+                });
+            });
+
+            // Mouse follow effect
+            let mouseX = 0;
+            let mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+                prism3D.style.transform = `rotateY(${mouseX}deg) rotateX(${-mouseY}deg)`;
+            });
+        }
+    </script>
+</body>
+</html>
